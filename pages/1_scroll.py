@@ -45,7 +45,7 @@ for index, tender in enumerate(tenders):
                 <p> {tender["reasoning"]} </h4>
             </div>
         """, unsafe_allow_html=True)
-        if st.button("🛠️Pick tender"):
+        if st.button("🛠️Pick tender", key=index):
             st.switch_page("pages/3_Chatbox.py")
         
 

@@ -86,8 +86,6 @@ if uploaded_file:
     for i in range(len(res)):
         res[i]["image"] = uploaded_file
 
-    st.session_state['selected_price'] = res[0]
-
     # Placeholder: future Gemini response or model
     st.info("🚧 Select the price you are willing to pay:")
     
