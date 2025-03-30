@@ -38,23 +38,4 @@ currency = st.selectbox("Select your currency:", ["RM", "USD"])
 st.success(f"Current currency: {currency}")
 st.markdown('</div>', unsafe_allow_html=True)
 
-# ---------- Tender Data Preview ----------
-if "tenders" in st.session_state:
-    tenders = st.session_state["tenders"]
 
-    if tenders:
-        st.markdown('<div class="section">', unsafe_allow_html=True)
-        st.markdown("<h4>📋 Active Tender Info</h4>", unsafe_allow_html=True)
-        
-        for t in tenders:
-            st.markdown(f"""
-                <div class="tender-card">
-                    <b>{t['name']}</b> - {t['car']}<br>
-                    💰 {t['price']}<br>
-                    🛠️ {t['problem']}
-                </div>
-            """, unsafe_allow_html=True)
-
-        st.markdown('</div>', unsafe_allow_html=True)
-else:
-    st.warning("Tender data not found. Please open the Tender Feed page first.")

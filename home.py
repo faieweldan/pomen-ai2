@@ -1,10 +1,15 @@
 import streamlit as st
+import streamlit_authenticator as stauth
+import yaml
+from yaml.loader import SafeLoader
 
 st.set_page_config(
     page_title="Pomen - AI Mechanic Platform",
     page_icon="🛠️",
     layout="centered"
 )
+
+
 
 # --------- Custom CSS for style + background image ---------
 st.markdown("""
@@ -66,7 +71,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --------- Main Content ---------
-st.markdown('<p class="big-font">🛠️ Welcome to Pomen!</p>', unsafe_allow_html=True)
+st.markdown(f'<p class="big-font">🛠️ Welcome to Pomen!</p>', unsafe_allow_html=True)
+if st.experimental_user.is_logged_in:
+    st.markdown(f'<p class="big-font">Hello {st.experimental_user.name}</p>', unsafe_allow_html=True)
 st.markdown('<p class="subtle">AI-powered. Scam-free. Your trusted car repair assistant.</p>', unsafe_allow_html=True)
 st.markdown('<p class="desc">Pomen is a smart, all-in-one platform that helps vehicle owners quickly find trusted mechanics, predict car issues using AI, and manage repair needs — all in one place.</p>', unsafe_allow_html=True)
 
@@ -81,9 +88,14 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+
+
 if "tenders" not in st.session_state:
     st.session_state["tenders"] = []
 
 # --------- Button ---------
+if st.button("Login!"):
+    st.switch_page("pages/5_Login.py")
+    
 if st.button("🚘 Get price estimates for your car issues!"):
     st.switch_page("pages/2_Model.py")

@@ -2,6 +2,9 @@ import streamlit as st
 import json
 from google import genai
 from PIL import Image
+from streamlit_geolocation import streamlit_geolocation
+import requests
+from requests.structures import CaseInsensitiveDict
 
 st.set_page_config(page_title="Pomen - Diagnose Model", page_icon="🔧", layout="centered")
 
@@ -24,6 +27,17 @@ def evaluate_damage(_im, _extra_desc):
     
     response_details = json.loads(response.text.replace("\n", "")[7:-3])
     return response_details
+
+@st.cache_data
+def get_location(_lat, _long):
+
+    url = f"https://api.geoapify.com/v1/geocode/reverse?lat={_lat}&lon={_long}&apiKey=c852584dacc34595944ee320a3623324"
+
+    headers = CaseInsensitiveDict()
+    headers["Accept"] = "application/json"
+
+    resp = requests.get(url, headers=headers)
+    return res
 
 # 🔒 SAFETY REMINDER FIRST
 with st.expander("🛡️ **View Safety Instructions Before Uploading**", expanded=False):
@@ -113,6 +127,7 @@ if uploaded_file:
     if "selected_price" in st.session_state:
         st.write(st.session_state["selected_price"])
         st.info(f"${st.session_state["selected_price"]["Price"]}\n{st.session_state["selected_price"]["reasoning"]}")
+
 
     # --------- Button ---------
     if st.button("Publish"):
