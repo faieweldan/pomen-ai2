@@ -6,6 +6,8 @@ matched_tendors = ['Tendor A', 'Tendor B', 'Tendor C']
 
 st.sidebar.title("Messages")
 
+st.write(st.session_state["selected_price"])
+
 # If no messages
 if not matched_tendors:
     st.sidebar.info("You have no messages yet.")
