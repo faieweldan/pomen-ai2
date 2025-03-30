@@ -94,8 +94,9 @@ if "tenders" not in st.session_state:
     st.session_state["tenders"] = []
 
 # --------- Button ---------
-if st.button("Login!"):
-    st.switch_page("pages/5_Login.py")
-    
+if not st.experimental_user.is_logged_in:
+    if st.button("Login!"):
+        st.switch_page("pages/5_Login.py")
+
 if st.button("🚘 Get price estimates for your car issues!"):
     st.switch_page("pages/2_Model.py")

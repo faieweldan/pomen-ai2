@@ -24,7 +24,7 @@ def evaluate_damage(image_bytes, extra_desc):
     """
     # Open image from the raw bytes (wrap in BytesIO)
     pil_image = Image.open(BytesIO(image_bytes))
-    prompt = f"""Give 3 prices for the damaged car. Here are some additional details: {extra_desc}
+    prompt = f"""Give 3 prices for the damaged car. Describe car damage in the reasoning. Here are some additional details: {extra_desc}
 
     Return the output using this schema:
         [{{"Price": int, "reasoning": str}}]
@@ -129,10 +129,10 @@ if uploaded_file:
         }
         collection.insert_one(submission)
         st.success("🚀 Published to MongoDB!")
-        # temp = st.session_state.get("tenders", [])
-        # temp.append(st.session_state["selected_price"])
-        # st.session_state["tenders"] = temp
-        update_list_tenders()
-        st.switch_page("pages/1_scroll.py")
+        temp = st.session_state.get("tenders", [])
+        temp.append(st.session_state["selected_price"])
+        st.session_state["tenders"] = temp
+        # update_list_tenders()
+        st.switch_page("pages/1_Listing.py")
 
 st.markdown("</div>", unsafe_allow_html=True)
